@@ -41,4 +41,4 @@ jobs:
     - name: Test application
       run: 'mvn test'
     - name: Test application
-      run: 'pwd'
+      run: 'ls -la'

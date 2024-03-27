@@ -24,7 +24,7 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
       with:
-        ref: jenk
+        ref: main
 
     - name: Show directory
       run: 'pwd'
@@ -40,4 +40,5 @@ jobs:
 
     - name: Test application
       run: 'mvn test'
-
+    - name: Test application
+      run: 'pwd'

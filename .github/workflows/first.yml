@@ -41,12 +41,12 @@ jobs:
     - name: Test application
       run: 'mvn test'
 
-    - name: Copy folder content recursively to remote
-      uses: garygrossgarten/github-action-scp@release
-      with:
-       local: target
-       remote: ~/home/ubuntu
-       host: 35.156.31.37
-       port: 22
-       username: osboxes
-       privateKey: ${{secrets.PRIVATE_KEY}}
+    - name: Setup SSH Key
+      run: |
+          mkdir -p "$HOME/.ssh"
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > "$HOME/.ssh/id_rsa"
+          chmod 600 "$HOME/.ssh/id_rsa"
+
+    - name: Deploy to Server
+      run: |
+          rsync -e "ssh -p 22 -i $HOME/.ssh/id_rsa -o StrictHostKeyChecking=no" --archive --compress --delete target ubuntu@35.156.31.37:/home/ubuntu

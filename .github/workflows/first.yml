@@ -40,7 +40,14 @@ jobs:
 
     - name: Test application
       run: 'mvn test'
-    - name: Test application
-      run: 'ls -la'
-    - name: Test application
-      run: cd target && ls -la
+    
+    - name: Deploy directory to EC2
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ env.SERVER_PUBLIC_IP }}
+        username: ubuntu
+        key: ${{ env.PRIVATE_SSH_KEY }}
+        envs: PRIVATE_SSH_KEY
+        script: |-
+          scp -r target ubuntu@${{ env.SERVER_PUBLIC_IP }}:/home/ubuntu
+

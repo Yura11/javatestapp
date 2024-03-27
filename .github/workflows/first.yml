@@ -43,6 +43,4 @@ jobs:
     - name: Test application
       run: 'ls -la'
     - name: Test application
-      run: |
-          'cd target'
-          'ls -la'
+      run: cd target && ls -la

@@ -41,21 +41,11 @@ jobs:
     - name: Test application
       run: 'mvn test'
 
-    - name: Add SSH key to known_hosts
-      run: |
-        mkdir -p ~/.ssh
-        ssh-keyscan -H ${{ secrets.SERVER_PUBLIC_IP }} >> ~/.ssh/known_hosts
-
-
-    - name: Copy artifacts to server
-      uses: appleboy/ssh-action@v0.1.10
+    - name: executing remote ssh commands using ssh key
+      uses: appleboy/ssh-action@v1.0.3
       with:
-        host: ${{ secrets.SERVER_PUBLIC_IP }}
+        host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
         key: ${{ secrets.KEY }}
         port: ${{ secrets.PORT }}
-        command_timeout: 30m
-        script: |
-          scp -r target/* ubuntu@${{ secrets.SERVER_PUBLIC_IP }}:/home/ubuntu
-
-
+        script: whoami

@@ -53,6 +53,7 @@ jobs:
 
     - name: Run Java application on remote machine
       run: |
-        ssh -p 22 -i $HOME/.ssh/id_rsa -o StrictHostKeyChecking=no ubuntu@35.156.31.37 'timeout 20s java -jar ~/target/dev.war && [ $? -eq 124 ]'
+        ssh -p 22 -i $HOME/.ssh/id_rsa -o StrictHostKeyChecking=no ubuntu@35.156.31.37 'timeout 20s java -jar ~/target/dev.war && echo "success"'
+
 
 
